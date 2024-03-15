@@ -1,0 +1,41 @@
+---
+title: "Ejemplo redes"
+format: html
+editor: visual
+---
+
+## Paquetes
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(visNetwork)
+```
+
+Datos
+
+```{r}
+nodos <- 
+  read_csv("datos/nodos.csv") %>% 
+  mutate(label = str_trunc(nombre, 15),
+         title = str_c("<b>Nombre:</b> ", nombre, "<br/>", "<b>Grupo: </b>", group))
+
+aristas <- read_csv("datos/aristas.csv")
+```
+
+## Red
+
+```{r}
+red <-
+  visNetwork(nodes = nodos,
+             edges = aristas,
+             main = "Red de vínculos",
+             submain = "Casos investigados") %>% 
+   visPhysics(enabled = FALSE)
+
+red
+```
+
+```{r}
+
+```
